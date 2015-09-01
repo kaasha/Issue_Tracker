@@ -14,19 +14,22 @@ def displayTable(total=0,prev_day=0,prev_week=0):
 
 def qweryUrl(url):
     #r=requests.get('http://api.github.com/Shippable/support/issues?state=opened')
-    #r=requests.get("http://api.github.com/Shippable/support/issues")
-    r=requests.get("https://api.github.com/issues?state=opened",auth=('kaasha','Kickst@rtyourd@y'))
-    #r = requests.get('https://github.com/issues')
+    #r=requests.get("http://api.github.com/repos/Shippable/support/issues?state=opened'")
+    r=requests.get("https://api.github.com/repos/batterseapower/pinyin-toolkit/issues")
+    #r=requests.get("https://api.github.com/issues?state=opened",auth=('kaasha','Kickst@rtyourd@y'))
+    #r = requests.get(url+'/issues?state=opened')
+    #r = requests.get("https://github.com/docker/docker/issues?q=is%3Aopen")
     print r.status_code
-    print r.text
-    total_open=0,prev_day=0,prev_week=0
+    #print r.text
+    #total_open=0,prev_day=0,prev_week=0
     #Convert r to list
-    #total_open=len(r)
-    #print total_open
+    total_open=len(r.json())
+    print total_open
     cur_time= datetime.datetime.now()
     print cur_time
+    
     for ele in r:
-        open_time=ele[open_time]
+        open_time=ele[created_at]
         ##Need to create datetime object
         delta=cur_time-open_time
 
@@ -36,6 +39,7 @@ def qweryUrl(url):
             prev_week=prev_week+1
         else:
             pass
+
     return total_open,prev_day,prev_week
 
     

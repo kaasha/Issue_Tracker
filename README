@@ -1,2 +1,29 @@
 # issue_tracker
+
 Track issues according to date
+
+
+#Solution
+
+1.Do a get on issues of input repo
+2.Find diffrence between cur_time and created_at time of each open issue
+(by creating datetime object)
+3.Incrementing the counter for all open issues
+4.Displaying the output in table form using prettyTable,stating total number of open 
+issues,issues opened in last 24hrs,issue opened before 24 hrs and less than 7 
+days ago,issues opened more than 7 days ago
+
+
+
+#Given more time
+
+1.Checks can be include to confirm whether its a valid repo or not(however I have 
+included status_code check)
+2.Total number of pages can be found and differnt threads can be spawned to 
+operate on each page and further combine the results
+3.Application can log the output in a file and can be run as a cronjob per 
+day(every 24 hrs),with the results being mailed to requested email aliases
+4.A better UI can be made with buttons and text boxes to display result
+
+
+#URL where application is live

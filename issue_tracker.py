@@ -2,7 +2,7 @@ import os
 import json
 import requests
 from prettytable import PrettyTable
-import datetime
+from datetime import datetime
 from urlparse import urlparse
 from time import sleep
 
@@ -12,7 +12,7 @@ def displayTable(total=0, prev_day=0, prev_week=0):
     t.add_row(['Total Open', total])
     t.add_row(['Opened in last 24hrs', prev_day])
     t.add_row(['Opened before 24hrs but less than 7 days ago', prev_week])
-    t.add_row(['Opened more than 7 days ago ', (total - prev_week)])
+    t.add_row(['Opened more than 7 days ago ', (total - prev_day - prev_week)])
     print t
 
 
@@ -24,46 +24,40 @@ def qweryUrl(url):
     flag = 0
     prev_day = 0
     prev_week = 0
-    
+    total_open=0
     while flag == 0:
         try:
-            r = requests.get('http://api.github.com/repos' + url.path +
-                             '/issues?state=open' + '&page=' + str(page) + '&per_page=100')
-            print r.status_code
-            time.sleep(5)
+            url_get='https://api.github.com/repos'+url.path+'/issues?state=open&page=' + str(page) + '&per_page=100'
+            r = requests.get(url_get)
+            sleep(5)
             if r.status_code == 404:
                 raise AssertionError('Private or wrong repo!')
                 break
-            print r.text
-            print len(r.json())
-            data.append(r.json())
-            if len(r.json()) == 0:
+            total_open= total_open + len(r.json())
+            data = json.loads(r.text)
+            # Find current time as datetime object
+            dt_obj1 = datetime.now()
+            for ele in data:
+                open_time = ele['created_at']
+                #Create datetime object for open time of issue
+                dt_obj2=datetime.strptime(open_time,'%Y-%m-%dT%H:%M:%SZ')
+                delta = dt_obj1 - dt_obj2
+                #Compare based on delta time
+                if delta.days < 1:
+                    prev_day = prev_day + 1
+                elif delta.days >= 1 and delta.days < 7:
+                    prev_week = prev_week + 1
+                else:
+                    pass
+            ##Check whether its last page
+            if len(r.json()) < 100:
                 flag = 1
             page = page + 1
+        ##Handling connection exception    
         except requests.exceptions.ConnectionError:
             flag = 1
             print "Connection refused!"
     
-    # Total open issues are number of elements added to data
-    total_open = len(data)
-    print total_open
-
-    # Find current time
-    cur_time = datetime.datetime.now()
-    print cur_time
-
-    for ele in data:
-        open_time = ele[created_at]
-        # Need to create datetime object
-        delta = cur_time - open_time
-
-        if delta.days < 1:
-            prev_day = prev_day + 1
-        elif delta.day >= 1 and delta.day < 7:
-            prev_week = prev_week + 1
-        else:
-            pass
-
     return total_open, prev_day, prev_week
 
 

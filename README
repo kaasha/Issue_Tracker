@@ -12,7 +12,26 @@ Track issues according to date
 4.Displaying the output in table form using prettyTable,stating total number of open 
 issues,issues opened in last 24hrs,issue opened before 24 hrs and less than 7 
 days ago,issues opened more than 7 days ago
+
+Command:python issue_tracker_terminal.py
 INPUT:https://github.com/kubernetes/kubernetes
+Expected OUTPUT:
+
+Please enter link to public GitHub repo:https://github.com/kubernetes/kubernetes   
+Link:https://github.com/kubernetes/kubernetes
+Please wait...
+Please wait...
+Please wait...
++----------------------------------------------+-------+
+|            Number of open issues             | Value |
++----------------------------------------------+-------+
+|                  Total Open                  |  1701 |
+|             Opened in last 24hrs             |   47  |
+| Opened before 24hrs but less than 7 days ago |  126  |
+|         Opened more than 7 days ago          |  1528 |
++----------------------------------------------+-------+
+
+
 
 #Given more time
 
@@ -26,3 +45,4 @@ day(every 24 hrs),with the results being mailed to requested email aliases
 5.Would have added unit tests.
 
 #URL where application is live
+I used pythonanywhere for PaaS,link will be emailed to you directly vial pythonanywhere.com

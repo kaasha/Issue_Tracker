@@ -7,5 +7,5 @@ SQLAlchemy==1.0.4
 whitenoise==1.0.6
 requests==2.5.3
 prettytable==0.7.2
-Tk==8.3
-Tix==8.1.4
+python3-tk
+tk

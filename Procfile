@@ -1,1 +1,1 @@
-python issue_tracker.py
+web: python issue_tracker.py

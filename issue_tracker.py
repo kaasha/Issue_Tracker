@@ -5,7 +5,7 @@ from prettytable import PrettyTable
 from datetime import datetime
 from urlparse import urlparse
 from time import sleep
-
+from Tkinter import *
 
 def displayTable(total=0, prev_day=0, prev_week=0):
     t = PrettyTable(['Number of open issues', 'Value'])
@@ -60,9 +60,20 @@ def qweryUrl(url):
     
     return total_open, prev_day, prev_week
 
+def doStuff():
+    total, prev_day, prev_week = qweryUrl(var1.get())
+    displayTable(total, prev_day, prev_week)
+    root.destroy()
+
 
 if __name__ == '__main__':
-    url = raw_input('Please enter link to public GitHub repo:')
-    print "Link:{0}".format(url)
-    total, prev_day, prev_week = qweryUrl(url)
-    displayTable(total, prev_day, prev_week)
+    #Creating UI
+    root = Tk()
+    root.title("Issue Tracker")
+    root.geometry("600x400")
+    var1 = StringVar()
+    #Taking Input
+    textBox = Entry(root, textvariable=var1).pack()
+    button = Button(root, text="Get Issues",command=doStuff)
+    button.pack()
+    root.mainloop()

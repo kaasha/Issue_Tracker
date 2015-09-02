@@ -12,8 +12,7 @@ Track issues according to date
 4.Displaying the output in table form using prettyTable,stating total number of open 
 issues,issues opened in last 24hrs,issue opened before 24 hrs and less than 7 
 days ago,issues opened more than 7 days ago
-
-
+INPUT:https://github.com/kubernetes/kubernetes
 
 #Given more time
 

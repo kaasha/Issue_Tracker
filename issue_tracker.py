@@ -4,7 +4,6 @@ import requests
 from prettytable import PrettyTable
 from datetime import datetime
 from urlparse import urlparse
-from time import sleep
 from Tkinter import *
 
 def displayTable(total=0, prev_day=0, prev_week=0):
@@ -29,10 +28,11 @@ def qweryUrl(url):
         try:
             url_get='https://api.github.com/repos'+url.path+'/issues?state=open&page=' + str(page) + '&per_page=100'
             r = requests.get(url_get)
-            sleep(5)
             if r.status_code == 404:
                 raise AssertionError('Private or wrong repo!')
                 break
+            if page%5 == 0:
+                print "Please wait..."
             total_open= total_open + len(r.json())
             data = json.loads(r.text)
             # Find current time as datetime object

@@ -31,6 +31,9 @@ Please wait...
 |         Opened more than 7 days ago          |  1528 |
 +----------------------------------------------+-------+
 
+#File Description
+issue_tracker_terminal.py=>Takes console input of url from user and displays output in table form
+issue_tracker.py=>Takes input from textbox(however has dependency on tkinter,so it is just from UI purpose)
 
 
 #Given more time

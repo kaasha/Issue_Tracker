@@ -1,1 +1,1 @@
-web: python issue_tracker_terminal.py
+worker: python issue_tracker_terminal.py
